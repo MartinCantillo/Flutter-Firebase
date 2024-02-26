@@ -21,7 +21,15 @@ class CustomTextFormField extends StatelessWidget {
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
         labelText: names ?? "",
-        labelStyle: TextStyle(fontSize: 25.0),
+        labelStyle: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.blue),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: BorderSide(color: Colors.blue),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: BorderSide(color: Colors.blue, width: 2.0),
+        ),
       ),
       onSaved: onSaved,
       validator: validator,
