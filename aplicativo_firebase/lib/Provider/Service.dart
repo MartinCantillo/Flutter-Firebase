@@ -55,4 +55,20 @@ class Service {
       throw Exception("Error ${e}");
     }
   }
+
+  Future<int> delete(String id) async {
+    try {
+      final url = "";
+      final response = await http.delete(Uri.parse(url));
+      if (response.statusCode == 200) {
+        String decodeData = jsonDecode(response.body);
+        print(decodeData);
+        return 1;
+      } else {
+        throw Exception("Error ${response.statusCode}");
+      }
+    } catch (e) {
+      throw Exception("Error ${e}");
+    }
+  }
 }
