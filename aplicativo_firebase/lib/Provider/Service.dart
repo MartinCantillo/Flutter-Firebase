@@ -40,7 +40,19 @@ class Service {
     }
   }
 
-  Future <bool> update(){
-    
+  Future<bool> update(Data data) async {
+    try {
+      final url = ".json";
+      final response = await http.put(Uri.parse(url), body: data.toJson());
+      if (response.statusCode == 200) {
+        final decodeData = jsonDecode(response.body);
+        print(decodeData);
+        return true;
+      } else {
+        throw ("Error ${response.statusCode}");
+      }
+    } catch (e) {
+      throw Exception("Error ${e}");
+    }
   }
 }
