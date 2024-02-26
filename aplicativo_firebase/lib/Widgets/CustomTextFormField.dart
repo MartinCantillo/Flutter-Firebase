@@ -2,19 +2,26 @@ import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final String? initialValue;
-  final String? name;
+  final String? names; 
   final void Function(String?)? onSaved;
   final String? Function(String?)? validator;
-  const CustomTextFormField(
-      {super.key, this.initialValue, this.name, this.onSaved, this.validator});
+
+  const CustomTextFormField({
+    Key? key,
+    this.initialValue,
+    this.names, 
+    this.onSaved,
+    this.validator,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      initialValue: this.initialValue,
+      initialValue: initialValue,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
-        labelText: name != null ? name! : "",
+        labelText: names ?? "",
+        labelStyle: TextStyle(fontSize: 25.0),
       ),
       onSaved: onSaved,
       validator: validator,
