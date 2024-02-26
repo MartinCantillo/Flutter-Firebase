@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 class Data {
-  final int? id;
-  final int? dias;
-  final int? cigarrillos;
-  final int? estado;
+  final String? id;
+  final String? dias;
+  final String? cigarrillos;
+  final String? estado;
 
   Data(
       {required this.id,
