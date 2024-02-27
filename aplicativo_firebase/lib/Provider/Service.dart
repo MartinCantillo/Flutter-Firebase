@@ -5,16 +5,15 @@ import 'package:http/http.dart' as http;
 
 class Services {
   static int i = 1;
-  final String endpoint = "TuEndpoint :v";
+  final String endpoint = "";
 
-  Services() {}
   Future<bool> save(Data data) async {
     try {
       data.id = i;
       final url = "$endpoint/Data.json";
       // print("url save ${url}");
       final response =
-          await http.post(Uri.parse(url), body: DataModelToJson(data));
+          await http.post(Uri.parse(url), body: dataModelToJson(data));
       if (response.statusCode == 200) {
         print(response.body);
         //  final String decodeData = jsonDecode(response.body);
@@ -36,19 +35,17 @@ class Services {
       final response = await http.get(Uri.parse(url));
 
       if (response.statusCode == 200) {
-        // print(response.body);
-        List<Data> ListData = [];
-        final Map<String, dynamic> decodeData = jsonDecode(response.body);
-        decodeData.forEach((key, value) {
-          ListData.add(Data.fromJson(value));
-        });
-
-        return ListData;
+        String body = utf8.decode(response.bodyBytes);
+        final jsonData = jsonDecode(body);
+        
+        final listData2 = ListData.fromJsonList(jsonData);
+       
+        return listData2.datas;
       } else {
-        throw ("Ocurrio algo ${response.statusCode}");
+        throw Exception("Ocurrió algo ${response.statusCode}");
       }
     } catch (e) {
-      throw ("Error ${e}");
+      throw Exception("Error $e");
     }
   }
 

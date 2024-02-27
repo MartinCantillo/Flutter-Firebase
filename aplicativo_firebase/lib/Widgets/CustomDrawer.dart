@@ -1,3 +1,5 @@
+import 'package:aplicativo_firebase/Screens/MyHomePage.dart';
+import 'package:aplicativo_firebase/Screens/ShowScreem.dart';
 import 'package:flutter/material.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -25,11 +27,15 @@ class CustomDrawer extends StatelessWidget {
           ),
           ListTile(
             title: Text('Save', style: TextStyle(color: Colors.white)),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).pushNamed(MyHomePage.nombre);
+            },
           ),
           ListTile(
             title: Text('Get', style: TextStyle(color: Colors.white)),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).pushNamed(ShowScreem.nombre);
+            },
           ),
           ListTile(
             title: Text('Delete', style: TextStyle(color: Colors.white)),

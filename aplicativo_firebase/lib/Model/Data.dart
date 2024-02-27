@@ -1,6 +1,29 @@
 import 'dart:convert';
 
-String DataModelToJson(Data data) => json.encode(data.toJson());
+String dataModelToJson(Data data) => json.encode(data.toJson());
+
+class ListData {
+  List<Data> datas = [];
+
+  ListData.fromJsonList(Map<String, dynamic> jsonList) {
+  if (jsonList == null) {
+    return;
+  } else {
+    jsonList.forEach((key, json) {
+      if (json is Map<String, dynamic>) {
+        try {
+          final value = Data.fromJson(json);
+          datas.add(value);
+        } catch (e) {
+          print(e);
+        }
+      }
+    });
+  }
+}
+
+}
+
 class Data {
   int? _id;
   String? _name;
@@ -16,12 +39,12 @@ class Data {
     String? days,
     String? cigarettes,
     int? status,
-  })  : _id = id,
+  })  : _id = id = 0,
         _name = name,
         _lastname = lastname,
         _days = days,
         _cigarettes = cigarettes,
-        _status = status;
+        _status = status = 0;
 
   int? get id => _id;
   String? get name => _name;
@@ -38,6 +61,8 @@ class Data {
   set status(int? status) => _status = status;
 
   factory Data.fromJson(Map<String, dynamic> json) {
+    //print("json entrante ${json}");
+
     return Data(
       id: json['id'],
       name: json['name'],

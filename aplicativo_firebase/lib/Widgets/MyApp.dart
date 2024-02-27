@@ -1,4 +1,5 @@
 import 'package:aplicativo_firebase/Screens/MyHomePage.dart';
+import 'package:aplicativo_firebase/Screens/ShowScreem.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {
@@ -15,6 +16,11 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const MyHomePage(),
+      initialRoute: MyHomePage.nombre,
+      routes: {
+        MyHomePage.nombre: (context) => const MyHomePage(),
+        ShowScreem.nombre: (context) => const ShowScreem(),
+      },
     );
   }
 }
