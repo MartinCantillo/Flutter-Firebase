@@ -1,20 +1,21 @@
 import 'dart:convert';
 
+String DataModelToJson(Data data) => json.encode(data.toJson());
 class Data {
-  String? _id;
+  int? _id;
   String? _name;
   String? _lastname;
   String? _days;
   String? _cigarettes;
-  String? _status;
+  int? _status;
 
   Data({
-    String? id,
+    int? id,
     String? name,
     String? lastname,
     String? days,
     String? cigarettes,
-    String? status,
+    int? status,
   })  : _id = id,
         _name = name,
         _lastname = lastname,
@@ -22,19 +23,19 @@ class Data {
         _cigarettes = cigarettes,
         _status = status;
 
-  String? get id => _id;
+  int? get id => _id;
   String? get name => _name;
   String? get lastname => _lastname;
   String? get days => _days;
   String? get cigarettes => _cigarettes;
-  String? get status => _status;
+  int? get status => _status;
 
-  set id(String? id) => _id = id;
+  set id(int? id) => _id = id;
   set name(String? name) => _name = name;
   set lastname(String? lastname) => _lastname = lastname;
   set days(String? days) => _days = days;
   set cigarettes(String? cigarettes) => _cigarettes = cigarettes;
-  set status(String? status) => _status = status;
+  set status(int? status) => _status = status;
 
   factory Data.fromJson(Map<String, dynamic> json) {
     return Data(
@@ -49,12 +50,12 @@ class Data {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': _id,
-      'name': _name,
-      'lastname': _lastname,
-      'days': _days,
-      'cigarettes': _cigarettes,
-      'status': _status,
+      "cigarettes": cigarettes,
+      "days": days,
+      "id": id,
+      "lastname": lastname,
+      "name": name,
+      "status": status,
     };
   }
 }

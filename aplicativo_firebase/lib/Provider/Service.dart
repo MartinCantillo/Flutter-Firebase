@@ -3,16 +3,24 @@ import 'dart:convert';
 import 'package:aplicativo_firebase/Model/Data.dart';
 import 'package:http/http.dart' as http;
 
-class Service {
-  final String Endpoint = '';
+class Services {
+  static int i = 1;
+  final String endpoint = "TuEndpoint :v";
 
+  Services() {}
   Future<bool> save(Data data) async {
     try {
-      final url = "";
-      final response = await http.post(Uri.parse(url), body: data.toJson());
+      data.id = i;
+      final url = "$endpoint/Data.json";
+      // print("url save ${url}");
+      final response =
+          await http.post(Uri.parse(url), body: DataModelToJson(data));
       if (response.statusCode == 200) {
-        final String decodeData = jsonDecode(response.body);
-        print(decodeData);
+        print(response.body);
+        //  final String decodeData = jsonDecode(response.body);
+        //  print(" entro a decodedata${decodeData}");
+        print(data.toJson());
+        i++;
         return true;
       } else {
         throw Exception("ocurrio algo ${response.statusCode}");
@@ -24,13 +32,17 @@ class Service {
 
   Future<List<Data>> getAll() async {
     try {
-      final url = "";
-      List<Data> ListData = [];
+      final url = "$endpoint/Data.json";
       final response = await http.get(Uri.parse(url));
+
       if (response.statusCode == 200) {
-        final String decodeData = jsonDecode(response.body);
-        ListData =
-            Data.fromJson(decodeData as Map<String, dynamic>) as List<Data>;
+        // print(response.body);
+        List<Data> ListData = [];
+        final Map<String, dynamic> decodeData = jsonDecode(response.body);
+        decodeData.forEach((key, value) {
+          ListData.add(Data.fromJson(value));
+        });
+
         return ListData;
       } else {
         throw ("Ocurrio algo ${response.statusCode}");

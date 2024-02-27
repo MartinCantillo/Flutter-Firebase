@@ -1,4 +1,5 @@
 import 'package:aplicativo_firebase/Model/Data.dart';
+import 'package:aplicativo_firebase/Provider/Service.dart';
 import 'package:aplicativo_firebase/Widgets/CustomTextFormField.dart';
 import 'package:flutter/material.dart';
 
@@ -10,12 +11,16 @@ class Forms extends StatefulWidget {
 }
 
 class _FormState extends State<Forms> {
+  AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
   final DataM = Data();
+
   final formKey = GlobalKey<FormState>();
+  final services = Services();
 
   @override
   Widget build(BuildContext context) {
     return Form(
+      autovalidateMode: _autovalidateMode,
       key: formKey,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -71,13 +76,13 @@ class _FormState extends State<Forms> {
 
   void saveDays(String? value) {
     if (value != null) {
-      DataM.id = value;
+      DataM.days = value;
     }
   }
 
   String? validatorDays(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter your code';
+      return 'Please enter days';
     }
 
     return null;
@@ -99,7 +104,7 @@ class _FormState extends State<Forms> {
 
   void savelastname(String? value) {
     if (value != null) {
-      DataM.name = value;
+      DataM.lastname = value;
     }
   }
 
@@ -113,13 +118,14 @@ class _FormState extends State<Forms> {
 
   void saveCigarettes(String? value) {
     if (value != null) {
-      DataM.name = value;
+      DataM.cigarettes = value;
+      validateStatus(value);
     }
   }
 
   String? validatorCigarettes(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter your lastname';
+      return 'Please enter num of Cigarettes';
     }
 
     return null;
@@ -133,11 +139,25 @@ class _FormState extends State<Forms> {
     );
   }
 
+  void validateStatus(String valur) {
+    int? validate = int.parse(valur);
+
+    if (validate >= 5) {
+      DataM.status = 1;
+    } else {
+      DataM.status = 2;
+    }
+  }
+
   void _submit() {
     formKey.currentState!.save();
 
-    // productoProvider.crearproductos(productM);
-
-    if (formKey.currentState!.validate()) return;
+    // print(DataM.toJson());
+    if (formKey.currentState!.validate()) {
+     //
+    // print(DataM.toJson());
+     services.save(DataM);
+      print("guardado");
+    }
   }
 }
