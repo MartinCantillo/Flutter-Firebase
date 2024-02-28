@@ -6,26 +6,26 @@ class ListData {
   List<Data> datas = [];
 
   ListData.fromJsonList(Map<String, dynamic> jsonList) {
-  if (jsonList == null) {
-    return;
-  } else {
-    jsonList.forEach((key, json) {
-      if (json is Map<String, dynamic>) {
-        try {
-          final value = Data.fromJson(json);
-          datas.add(value);
-        } catch (e) {
-          print(e);
+    if (jsonList == null) {
+      return;
+    } else {
+      jsonList.forEach((id, json) {
+        if (json is Map<String, dynamic>) {
+          try {
+            final value = Data.fromJson(json);
+            value._id=id;
+            datas.add(value);
+          } catch (e) {
+            print(e);
+          }
         }
-      }
-    });
+      });
+    }
   }
 }
 
-}
-
 class Data {
-  int? _id;
+  String? _id;
   String? _name;
   String? _lastname;
   String? _days;
@@ -33,27 +33,27 @@ class Data {
   int? _status;
 
   Data({
-    int? id,
+    String? id,
     String? name,
     String? lastname,
     String? days,
     String? cigarettes,
     int? status,
-  })  : _id = id = 0,
+  })  : _id = id ,
         _name = name,
         _lastname = lastname,
         _days = days,
         _cigarettes = cigarettes,
-        _status = status = 0;
+        _status = status ;
 
-  int? get id => _id;
+  String? get id => _id;
   String? get name => _name;
   String? get lastname => _lastname;
   String? get days => _days;
   String? get cigarettes => _cigarettes;
   int? get status => _status;
 
-  set id(int? id) => _id = id;
+  set id(String? id) => _id = id;
   set name(String? name) => _name = name;
   set lastname(String? lastname) => _lastname = lastname;
   set days(String? days) => _days = days;
@@ -64,7 +64,7 @@ class Data {
     //print("json entrante ${json}");
 
     return Data(
-      id: json['id'],
+      id: json['id'].toString(),
       name: json['name'],
       lastname: json['lastname'],
       days: json['days'],
